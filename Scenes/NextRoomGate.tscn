@@ -1,0 +1,16 @@
+[gd_scene format=3 uid="uid://dnrxmcp58btj8"]
+
+[ext_resource type="Script" uid="uid://cdv41fbskyo30" path="res://Scripts/NextRoom.cs" id="1_aq1tn"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_vt6hs"]
+size = Vector2(45, 116.75)
+
+[node name="gate" type="Area2D" unique_id=202952205]
+script = ExtResource("1_aq1tn")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=187995465]
+z_index = 2
+position = Vector2(0, -1)
+shape = SubResource("RectangleShape2D_vt6hs")
+
+[connection signal="body_entered" from="." to="." method="NextRoomGo"]

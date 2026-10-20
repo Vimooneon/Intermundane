@@ -1,0 +1,12 @@
+[gd_scene format=3 uid="uid://mvvm1doprh1o"]
+
+[node name="Camera2D" type="Camera2D" unique_id=936231311]
+limit_smoothed = true
+position_smoothing_enabled = true
+position_smoothing_speed = 10.0
+drag_horizontal_enabled = true
+drag_vertical_enabled = true
+drag_left_margin = 0.1
+drag_top_margin = 1.0
+drag_right_margin = 0.1
+drag_bottom_margin = 1.0

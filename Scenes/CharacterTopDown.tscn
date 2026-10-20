@@ -1,0 +1,32 @@
+[gd_scene format=3 uid="uid://ivfx4h4kbbbh"]
+
+[ext_resource type="Texture2D" uid="uid://be6fb7idvhpw7" path="res://Arts/DesponyChibi1.png" id="1_lglqd"]
+[ext_resource type="Texture2D" uid="uid://cuexwrbhc1fpe" path="res://Arts/DesponyChibi2.png" id="2_a6jql"]
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_k2bdr"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("1_lglqd")
+}, {
+"duration": 1.0,
+"texture": ExtResource("2_a6jql")
+}],
+"loop": 1,
+"name": &"default",
+"speed": 5.0
+}]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_c461t"]
+size = Vector2(196, 174)
+
+[node name="Node2D" type="CharacterBody2D" unique_id=1169013231]
+
+[node name="Sprite2D" type="AnimatedSprite2D" parent="." unique_id=668507899]
+z_index = 1
+scale = Vector2(0.5, 0.5)
+sprite_frames = SubResource("SpriteFrames_k2bdr")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=1252018730]
+position = Vector2(-1, -1)
+shape = SubResource("RectangleShape2D_c461t")

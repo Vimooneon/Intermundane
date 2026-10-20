@@ -1,0 +1,65 @@
+[gd_scene format=4 uid="uid://df37lshrgrxd7"]
+
+[ext_resource type="Texture2D" uid="uid://bwcux7l6qc3ke" path="res://Arts/LabWall2Small.png" id="1_ifx1w"]
+[ext_resource type="Texture2D" uid="uid://dlo3lk58rklk3" path="res://Arts/LabTilesSmaller.png" id="2_ss8jk"]
+[ext_resource type="PackedScene" uid="uid://dnrxmcp58btj8" path="res://Scenes/NextRoomGate.tscn" id="3_ysk0v"]
+[ext_resource type="PackedScene" uid="uid://c3ur2ytiqhbm2" path="res://Scenes/CharacterSideView.tscn" id="4_oob3o"]
+[ext_resource type="PackedScene" uid="uid://mvvm1doprh1o" path="res://Scenes/Camera_2d.tscn" id="5_imt0h"]
+
+[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_lquwl"]
+texture = ExtResource("2_ss8jk")
+texture_region_size = Vector2i(47, 47)
+0:0/0 = 0
+1:0/0 = 0
+1:0/0/physics_layer_0/polygon_0/points = PackedVector2Array(-23.5, -23.5, 23.5, -23.5, 23.5, 23.5, -23.5, 23.5)
+0:1/0 = 0
+0:1/0/physics_layer_0/polygon_0/points = PackedVector2Array(-23.5, -23.5, 23.5, -23.5, 23.5, 23.5, -23.5, 23.5)
+1:1/0 = 0
+1:1/0/physics_layer_0/polygon_0/points = PackedVector2Array(-23.5, -23.5, 23.5, -23.5, 23.5, 23.5, -23.5, 23.5)
+
+[sub_resource type="TileSet" id="TileSet_e406c"]
+tile_size = Vector2i(47, 47)
+physics_layer_0/collision_layer = 1
+sources/1 = SubResource("TileSetAtlasSource_lquwl")
+
+[node name="sideLevel2" type="Node" unique_id=1946929053]
+
+[node name="topdownLevel1Entrance" type="Marker2D" parent="." unique_id=1512322352]
+z_index = 2
+position = Vector2(1115.5454, 208.99998)
+
+[node name="Node2D" type="Node2D" parent="." unique_id=2063271350]
+position = Vector2(10, 24)
+
+[node name="TextureRect" type="TextureRect" parent="Node2D" unique_id=1009609855]
+texture_filter = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -48.0
+offset_top = -47.0
+offset_right = 1174.0
+offset_bottom = 660.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("1_ifx1w")
+stretch_mode = 1
+
+[node name="TileMap" type="TileMapLayer" parent="Node2D" unique_id=850238630]
+tile_map_data = PackedByteArray("AAD//w0AAQABAAAAAAAAAA0AAQABAAAAAAABAA0AAQABAAAAAAACAA0AAQABAAAAAAADAA0AAQABAAAAAAAEAA0AAQABAAAAAAAFAA0AAQABAAAAAAAGAA0AAQABAAAAAAAHAA0AAQABAAAAAAAIAA0AAQABAAAAAAAJAA0AAQABAAAAAAAKAA0AAQABAAAAAAALAA0AAQABAAAAAAAMAA0AAQABAAAAAAANAA0AAQABAAAAAAAOAA0AAQABAAAAAAAPAA0AAQABAAAAAAAQAA0AAQABAAAAAAARAA0AAQABAAAAAAASAA0AAQABAAAAAAATAA0AAQABAAAAAAAUAA0AAQABAAAAAAAVAA0AAQABAAAAAAAWAA0AAQABAAAAAAAXAA0AAQABAAAAAAAYAA0AAQABAAAAAAAYAAwAAQABAAAAAAAYAAsAAQABAAAAAAAYAAoAAQABAAAAAAAYAAkAAQABAAAAAAAYAAgAAQABAAAAAAAYAAcAAQABAAAAAAAYAAYAAQABAAAAAAAYAAUAAQABAAAAAAAYAAEAAQABAAAAAAAYAAAAAQABAAAAAAAYAP//AQABAAAAAAATAP//AQABAAAAAAASAP//AQABAAAAAAARAP//AQABAAAAAAAQAP//AQABAAAAAAAPAP//AQABAAAAAAAOAP//AQABAAAAAAANAP//AQABAAAAAAAMAP//AQABAAAAAAALAP//AQABAAAAAAAKAP//AQABAAAAAAAJAP//AQABAAAAAAAIAP//AQABAAAAAAAHAP//AQABAAAAAAAGAP//AQABAAAAAAAFAP//AQABAAAAAAAEAP//AQABAAAAAAADAP//AQABAAAAAAACAP//AQABAAAAAAABAP//AQABAAAAAAAAAP//AQABAAAAAAD/////AQABAAAAAAD//wAAAQABAAAAAAD//wEAAQABAAAAAAD//wIAAQABAAAAAAD//wMAAQABAAAAAAD//wcAAQABAAAAAAD//wgAAQABAAAAAAD//wkAAQABAAAAAAD//woAAQABAAAAAAD//wsAAQABAAAAAAD//wwAAQABAAAAAAAAAAcAAQAAAAEAAAABAAcAAQAAAAEAAAACAAcAAQAAAAEAAAAFAAoAAQAAAAEAAAAGAAoAAQAAAAEAAAAHAAoAAQAAAAEAAAAJAAYAAQAAAAEAAAAIAAgAAQAAAAEAAAAMAAoAAQAAAAEAAAANAAoAAQAAAAEAAAAOAAoAAQAAAAEAAAARAAkAAQAAAAEAAAASAAkAAQAAAAEAAAAVAAUAAQAAAAEAAAAWAAUAAQAAAAEAAAAUAP//AQABAAAAAAAVAP//AQABAAAAAAAWAP//AQABAAAAAAAXAP//AQABAAAAAAA=")
+tile_set = SubResource("TileSet_e406c")
+
+[node name="Side_level_1" parent="." unique_id=202952205 instance=ExtResource("3_ysk0v")]
+position = Vector2(-29, 286)
+
+[node name="Player" parent="." unique_id=59839763 instance=ExtResource("4_oob3o")]
+z_index = 1
+position = Vector2(59, 317)
+scale = Vector2(0.4, 0.4)
+
+[node name="Topdown_level_1" parent="." unique_id=27921781 instance=ExtResource("3_ysk0v")]
+position = Vector2(1183, 186)
+ModeSwap = true
+
+[node name="Camera2D" parent="." unique_id=936231311 instance=ExtResource("5_imt0h")]
+position = Vector2(575, 332)
