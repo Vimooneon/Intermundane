@@ -7,7 +7,91 @@
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_vt6hs"]
 size = Vector2(161, 103.25)
 
-[node name="Node2D" type="Node2D" unique_id=806339044]
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_e406c"]
+size = Vector2(116, 103)
+
+[sub_resource type="Animation" id="Animation_yuq7u"]
+resource_name = "Dissapear"
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 1),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Color(1, 1, 1, 1), Color(1, 1, 1, 0)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Sprite2D:skew")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 1),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [0.0, 0.44505897]
+}
+
+[sub_resource type="Animation" id="Animation_ypong"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(1, 1, 1, 1)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Sprite2D:skew")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [0.0]
+}
+
+[sub_resource type="Animation" id="Animation_v44lu"]
+resource_name = "TakeDamage"
+length = 0.5
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.25, 0.5),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 0,
+"values": [Color(1, 1, 1, 1), Color(4.415934, 4.415934, 4.415934, 1), Color(1, 1, 1, 1)]
+}
+
+[sub_resource type="Animation" id="Animation_rrv8s"]
+resource_name = "scratch"
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_yuq7u"]
+_data = {
+&"Dissapear": SubResource("Animation_yuq7u"),
+&"RESET": SubResource("Animation_ypong"),
+&"TakeDamage": SubResource("Animation_v44lu"),
+&"scratch": SubResource("Animation_rrv8s")
+}
+
+[node name="despondencyEnemy" type="RigidBody2D" unique_id=1832366675]
 script = ExtResource("1_yuq7u")
 
 [node name="Sprite2D" type="Sprite2D" parent="." unique_id=2002930839]
@@ -25,3 +109,14 @@ target_position = Vector2(-68, 0)
 
 [node name="RayCastRight" type="RayCast2D" parent="." unique_id=819767780]
 target_position = Vector2(64, 0)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=1136087738]
+position = Vector2(0, -0.5)
+shape = SubResource("RectangleShape2D_e406c")
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="." unique_id=1358566880]
+libraries/ = SubResource("AnimationLibrary_yuq7u")
+
+[node name="DamageCooldown" type="Timer" parent="." unique_id=1870260219]
+
+[connection signal="timeout" from="DamageCooldown" to="." method="DamageCooldownTimerEnd"]

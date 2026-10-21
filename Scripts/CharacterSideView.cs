@@ -15,7 +15,10 @@ public partial class CharacterSideView : CharacterBody2D
     public const float CameraAheadMult = 1.5f;
 
     private AnimatedSprite2D sprite2d;
+    public Area2D attack;
     private Camera2D camera;
+
+    private bool attacking = false;
 
 
     //var CoyoteLength = 6;  // How many in-air frames to allow jumping
@@ -26,6 +29,7 @@ public partial class CharacterSideView : CharacterBody2D
     public override void _Ready()
     {
         sprite2d = GetNode<AnimatedSprite2D>("Sprite2D");
+        attack = GetNode<Area2D>("Scratch");
 
         camera = GetTree().Root.GetChild(1, false).GetNode<Camera2D>("Camera2D");
         camera.GlobalPosition = this.GlobalPosition;
@@ -117,11 +121,63 @@ public partial class CharacterSideView : CharacterBody2D
         camera.GlobalPosition = this.GlobalPosition;
         Godot.Vector2 vc = new Godot.Vector2(direction * Speed * CameraAheadMult, 0);
         camera.Position += vc;
+
+        if (Input.IsActionJustPressed("attack"))
+        {
+            AttackInFront();
+        }
     }
-    
+
     public void CoyteTimerEnd()
     {
         CoyoteTime = false;
+    }
+
+    public async void AttackInFront()
+    {
+        if (attacking)
+            return;
+
+        Godot.Vector2 pos = attack.Position;
+        if (sprite2d.FlipH)
+        {
+            attack.Position = new Godot.Vector2(pos.X+320, pos.Y);
+        }
+
+        attacking = true;
+        attack.Visible = true;
+        var anim = attack.GetNode<AnimatedSprite2D>("AnimatedSprite2D");
+        anim.Frame = 0;
+        anim.Play();
+        await ToSignal(anim, "animation_finished");
+        attack.Visible = false;
+        attacking = false;
+        attack.Position = new Godot.Vector2(pos.X, pos.Y);
+    }
+
+    public void OnScratchInAttackRange(Node2D obj)
+    {
+        try
+        {
+            if (attacking)
+            {
+                string name = obj.Name;
+                if (name.Contains("Enemy") || name.Contains("enemy"))
+                {
+
+                    //var global = GetNode<Global>("/root/Global");
+                    //global.GotoScene("res://Scenes/"+this.Name+".tscn", ModeSwap);
+                    GD.Print(obj.Name);
+                    Enemy enmy = (Enemy)obj;
+                    enmy.EnemyTakeDamage(34);
+                }
+            }
+            
+        }
+        catch (Exception e)
+        {
+            GD.Print("Wrong collider " + e);
+        }
     }
     
 }

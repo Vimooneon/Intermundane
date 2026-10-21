@@ -2,7 +2,7 @@ using Godot;
 using System;
 using System.Numerics;
 
-public partial class DespondencyEnemy : Node2D
+public partial class DespondencyEnemy : Enemy
 {
 	const int Speed = 300;
 	int direction = 1;
@@ -23,17 +23,18 @@ public partial class DespondencyEnemy : Node2D
 	// Called every frame. 'delta' is the elapsed time since the previous frame.
 	public override void _Process(double delta)
 	{
-		if (ray_right.IsColliding())
-		{
-			direction = -1;
-			sprite2d.FlipH = false;
-		}
-		if (ray_left.IsColliding())
-        {
-			direction = 1;
-			sprite2d.FlipH = true;
+		if (Alive) {
+            if (ray_right.IsColliding())
+			{
+				direction = -1;
+				sprite2d.FlipH = false;
+			}
+			if (ray_left.IsColliding())
+			{
+				direction = 1;
+				sprite2d.FlipH = true;
+			}
+			this.Position = new Godot.Vector2((float)(this.Position.X + direction * Speed * delta), this.Position.Y);
         }
-		this.Position = new Godot.Vector2((float)(this.Position.X + direction * Speed * delta),this.Position.Y);
-
-    }
+	}
 }

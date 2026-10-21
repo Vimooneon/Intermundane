@@ -2,6 +2,7 @@
 
 [ext_resource type="Script" uid="uid://cdkylrjabmjmw" path="res://Scripts/CharacterSideView.cs" id="1_v44lu"]
 [ext_resource type="Texture2D" uid="uid://dw5m0qhq8uldd" path="res://Arts/PapercutChibiSmaller.png" id="2_ypong"]
+[ext_resource type="Texture2D" uid="uid://dwp4xae5vvh1u" path="res://Arts/ClawHit.png" id="3_v44lu"]
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_vt6hs"]
 animations = [{
@@ -31,6 +32,18 @@ tracks/0/keys = {
 "update": 0,
 "values": [Color(1, 1, 1, 1)]
 }
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Sprite2D:skew")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [0.0]
+}
 
 [sub_resource type="Animation" id="Animation_v44lu"]
 resource_name = "TakeDamage"
@@ -45,14 +58,113 @@ tracks/0/keys = {
 "times": PackedFloat32Array(0, 0.25, 0.5),
 "transitions": PackedFloat32Array(1, 1, 1),
 "update": 0,
-"values": [Color(1, 1, 1, 1), Color(18.892157, 18.892157, 18.892157, 1), Color(1, 1, 1, 1)]
+"values": [Color(1, 1, 1, 1), Color(4.415934, 4.415934, 4.415934, 1), Color(1, 1, 1, 1)]
 }
+
+[sub_resource type="Animation" id="Animation_rrv8s"]
+resource_name = "scratch"
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_rrv8s"]
 _data = {
 &"RESET": SubResource("Animation_ypong"),
-&"TakeDamage": SubResource("Animation_v44lu")
+&"TakeDamage": SubResource("Animation_v44lu"),
+&"scratch": SubResource("Animation_rrv8s")
 }
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_rrv8s"]
+atlas = ExtResource("3_v44lu")
+region = Rect2(0, 0, 231, 261)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_rf502"]
+atlas = ExtResource("3_v44lu")
+region = Rect2(231, 0, 231, 261)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_cn7ob"]
+atlas = ExtResource("3_v44lu")
+region = Rect2(462, 0, 231, 261)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_yrm7o"]
+atlas = ExtResource("3_v44lu")
+region = Rect2(693, 0, 231, 261)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_uplx7"]
+atlas = ExtResource("3_v44lu")
+region = Rect2(0, 261, 231, 261)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_q8khr"]
+atlas = ExtResource("3_v44lu")
+region = Rect2(231, 261, 231, 261)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_b2nk1"]
+atlas = ExtResource("3_v44lu")
+region = Rect2(462, 261, 231, 261)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_io1l7"]
+atlas = ExtResource("3_v44lu")
+region = Rect2(693, 261, 231, 261)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_clp1u"]
+atlas = ExtResource("3_v44lu")
+region = Rect2(0, 522, 231, 261)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_d7fld"]
+atlas = ExtResource("3_v44lu")
+region = Rect2(231, 522, 231, 261)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_c5xa6"]
+atlas = ExtResource("3_v44lu")
+region = Rect2(462, 522, 231, 261)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_3rph1"]
+atlas = ExtResource("3_v44lu")
+region = Rect2(693, 522, 231, 261)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_e406c"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_rrv8s")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_rf502")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_cn7ob")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_yrm7o")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_uplx7")
+}, {
+"duration": 2.0,
+"texture": SubResource("AtlasTexture_q8khr")
+}, {
+"duration": 0.5,
+"texture": SubResource("AtlasTexture_b2nk1")
+}, {
+"duration": 0.5,
+"texture": SubResource("AtlasTexture_io1l7")
+}, {
+"duration": 0.5,
+"texture": SubResource("AtlasTexture_clp1u")
+}, {
+"duration": 0.5,
+"texture": SubResource("AtlasTexture_d7fld")
+}, {
+"duration": 0.5,
+"texture": SubResource("AtlasTexture_c5xa6")
+}, {
+"duration": 0.5,
+"texture": SubResource("AtlasTexture_3rph1")
+}],
+"loop": 0,
+"name": &"default",
+"speed": 24.0
+}]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_e406c"]
+size = Vector2(118, 140.25)
 
 [node name="CharacterBody2D" type="CharacterBody2D" unique_id=59839763]
 script = ExtResource("1_v44lu")
@@ -73,4 +185,20 @@ one_shot = true
 [node name="AnimationPlayer" type="AnimationPlayer" parent="." unique_id=1751543187]
 libraries/ = SubResource("AnimationLibrary_rrv8s")
 
+[node name="Scratch" type="Area2D" parent="." unique_id=1845297036]
+visible = false
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="Scratch" unique_id=1590277819]
+position = Vector2(-163, 7)
+scale = Vector2(0.5, 0.5)
+sprite_frames = SubResource("SpriteFrames_e406c")
+autoplay = "default"
+frame = 11
+frame_progress = 1.0
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Scratch" unique_id=1724843879]
+position = Vector2(-163, 6.875)
+shape = SubResource("RectangleShape2D_e406c")
+
 [connection signal="timeout" from="CoyoteTimer" to="." method="CoyteTimerEnd"]
+[connection signal="body_entered" from="Scratch" to="." method="OnScratchInAttackRange"]

@@ -5,11 +5,11 @@ public partial class CharacterTopDown : CharacterBody2D
 {
     public const float Speed = 400.0f;
 
-	public AnimatedSprite2D sprite;
+    public AnimatedSprite2D sprite;
 	
 	public override void _Ready()
 	{
-		sprite = GetNode<AnimatedSprite2D>("Sprite2D");
+        sprite = GetNode<AnimatedSprite2D>("Sprite2D");
 	}
 
     public override void _PhysicsProcess(double delta)
