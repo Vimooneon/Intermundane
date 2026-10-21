@@ -1,16 +1,12 @@
 [gd_scene format=3 uid="uid://ivfx4h4kbbbh"]
 
-[ext_resource type="Texture2D" uid="uid://be6fb7idvhpw7" path="res://Arts/DesponyChibi1.png" id="1_lglqd"]
-[ext_resource type="Texture2D" uid="uid://cuexwrbhc1fpe" path="res://Arts/DesponyChibi2.png" id="2_a6jql"]
+[ext_resource type="Texture2D" uid="uid://dw5m0qhq8uldd" path="res://Arts/PapercutChibiSmaller.png" id="1_xk4ef"]
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_k2bdr"]
 animations = [{
 "frames": [{
 "duration": 1.0,
-"texture": ExtResource("1_lglqd")
-}, {
-"duration": 1.0,
-"texture": ExtResource("2_a6jql")
+"texture": ExtResource("1_xk4ef")
 }],
 "loop": 1,
 "name": &"default",
@@ -19,6 +15,43 @@ animations = [{
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_c461t"]
 size = Vector2(196, 174)
+
+[sub_resource type="Animation" id="Animation_ypong"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(1, 1, 1, 1)]
+}
+
+[sub_resource type="Animation" id="Animation_v44lu"]
+resource_name = "TakeDamage"
+length = 0.1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.033333335, 0.1),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 0,
+"values": [Color(1, 1, 1, 1), Color(2.454227, 2.454227, 2.454227, 1), Color(1, 1, 1, 1)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_g8bvx"]
+_data = {
+&"RESET": SubResource("Animation_ypong"),
+&"TakeDamage": SubResource("Animation_v44lu")
+}
 
 [node name="Node2D" type="CharacterBody2D" unique_id=1169013231]
 
@@ -30,3 +63,6 @@ sprite_frames = SubResource("SpriteFrames_k2bdr")
 [node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=1252018730]
 position = Vector2(-1, -1)
 shape = SubResource("RectangleShape2D_c461t")
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="." unique_id=871395041]
+libraries/ = SubResource("AnimationLibrary_g8bvx")

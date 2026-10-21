@@ -1,17 +1,13 @@
 [gd_scene format=3 uid="uid://c3ur2ytiqhbm2"]
 
 [ext_resource type="Script" uid="uid://cdkylrjabmjmw" path="res://Scripts/CharacterSideView.cs" id="1_v44lu"]
-[ext_resource type="Texture2D" uid="uid://be6fb7idvhpw7" path="res://Arts/DesponyChibi1.png" id="2_rrv8s"]
-[ext_resource type="Texture2D" uid="uid://cuexwrbhc1fpe" path="res://Arts/DesponyChibi2.png" id="3_rf502"]
+[ext_resource type="Texture2D" uid="uid://dw5m0qhq8uldd" path="res://Arts/PapercutChibiSmaller.png" id="2_ypong"]
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_vt6hs"]
 animations = [{
 "frames": [{
 "duration": 1.0,
-"texture": ExtResource("2_rrv8s")
-}, {
-"duration": 1.0,
-"texture": ExtResource("3_rf502")
+"texture": ExtResource("2_ypong")
 }],
 "loop": 1,
 "name": &"default",
@@ -21,12 +17,50 @@ animations = [{
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_vt6hs"]
 size = Vector2(196, 174)
 
+[sub_resource type="Animation" id="Animation_ypong"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(1, 1, 1, 1)]
+}
+
+[sub_resource type="Animation" id="Animation_v44lu"]
+resource_name = "TakeDamage"
+length = 0.5
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.25, 0.5),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 0,
+"values": [Color(1, 1, 1, 1), Color(18.892157, 18.892157, 18.892157, 1), Color(1, 1, 1, 1)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_rrv8s"]
+_data = {
+&"RESET": SubResource("Animation_ypong"),
+&"TakeDamage": SubResource("Animation_v44lu")
+}
+
 [node name="CharacterBody2D" type="CharacterBody2D" unique_id=59839763]
 script = ExtResource("1_v44lu")
 
 [node name="Sprite2D" type="AnimatedSprite2D" parent="." unique_id=1985060076]
 scale = Vector2(0.5, 0.5)
 sprite_frames = SubResource("SpriteFrames_vt6hs")
+frame_progress = 0.39202544
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=1842678987]
 position = Vector2(-1, -1)
@@ -35,5 +69,8 @@ shape = SubResource("RectangleShape2D_vt6hs")
 [node name="CoyoteTimer" type="Timer" parent="." unique_id=1451845042]
 wait_time = 0.546
 one_shot = true
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="." unique_id=1751543187]
+libraries/ = SubResource("AnimationLibrary_rrv8s")
 
 [connection signal="timeout" from="CoyoteTimer" to="." method="CoyteTimerEnd"]

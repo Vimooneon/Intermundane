@@ -72,6 +72,7 @@ public partial class CharacterSideView : CharacterBody2D
         {
             velocity.Y = JumpVelocity;
             Jumping = true;
+            CoyoteTime = false;
         }
         //Less jump height if button tapped instead of held
         if (Input.IsActionJustReleased("jump") && velocity.Y < 0)
@@ -97,6 +98,9 @@ public partial class CharacterSideView : CharacterBody2D
             {
                 velocity.X += direction * SpeedIncrease;
             }
+            // Flip the sprite based on the direction.
+            bool isLeft = velocity.X < 0;
+            sprite2d.FlipH = !isLeft;
         }
         else
         {
@@ -106,9 +110,8 @@ public partial class CharacterSideView : CharacterBody2D
         Velocity = velocity;
         MoveAndSlide();
 
-        // Flip the sprite based on the direction.
-        bool isLeft = velocity.X < 0;
-        sprite2d.FlipH = !isLeft;
+        
+        
 
         //updates camera position to character position + moves it a bit forward (player can see a bit ahead in direction they move)
         camera.GlobalPosition = this.GlobalPosition;

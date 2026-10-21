@@ -1,0 +1,90 @@
+[gd_scene format=3 uid="uid://c33ohjtnret2j"]
+
+[ext_resource type="Script" uid="uid://bmj6ktivd4erj" path="res://Scripts/KeyGreen.cs" id="1_cxlgt"]
+[ext_resource type="Texture2D" uid="uid://cpyum2wm2mf33" path="res://Arts/KeyGreen.png" id="1_oj2a5"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_vt6hs"]
+size = Vector2(44, 40)
+
+[sub_resource type="Animation" id="Animation_cxlgt"]
+resource_name = "KeyFloat"
+loop_mode = 2
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:offset")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 1),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector2(0, -15), Vector2(0, 15)]
+}
+
+[sub_resource type="Animation" id="Animation_far4c"]
+resource_name = "KeyPickup"
+length = 0.5
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.5),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Color(1, 1, 1, 1), Color(1, 1, 1, 0)]
+}
+
+[sub_resource type="Animation" id="Animation_gq57k"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(1, 1, 1, 1)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Sprite2D:offset")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(0, -15)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_1g61q"]
+_data = {
+&"KeyFloat": SubResource("Animation_cxlgt"),
+&"KeyPickup": SubResource("Animation_far4c"),
+&"RESET": SubResource("Animation_gq57k")
+}
+
+[node name="keyGreen" type="Area2D" unique_id=135782597]
+script = ExtResource("1_cxlgt")
+
+[node name="Sprite2D" type="Sprite2D" parent="." unique_id=1997577187]
+texture = ExtResource("1_oj2a5")
+offset = Vector2(0, -15)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=675714991]
+position = Vector2(1, -3)
+shape = SubResource("RectangleShape2D_vt6hs")
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="." unique_id=1086819726]
+libraries/ = SubResource("AnimationLibrary_1g61q")
+autoplay = &"KeyFloat"
+
+[connection signal="body_entered" from="." to="." method="KeyCollected"]

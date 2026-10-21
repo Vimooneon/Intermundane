@@ -1,0 +1,27 @@
+[gd_scene format=3 uid="uid://bv5p47800ok7f"]
+
+[ext_resource type="Texture2D" uid="uid://be6fb7idvhpw7" path="res://Arts/DesponyChibi1.png" id="1_lnpt8"]
+[ext_resource type="Script" uid="uid://f250chfm3cqw" path="res://Scripts/DespondencyEnemy.cs" id="1_yuq7u"]
+[ext_resource type="PackedScene" uid="uid://dqfb1j7adpv3n" path="res://Scenes/Damage_zone.tscn" id="3_yuq7u"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_vt6hs"]
+size = Vector2(161, 103.25)
+
+[node name="Node2D" type="Node2D" unique_id=806339044]
+script = ExtResource("1_yuq7u")
+
+[node name="Sprite2D" type="Sprite2D" parent="." unique_id=2002930839]
+scale = Vector2(0.3, 0.3)
+texture = ExtResource("1_lnpt8")
+
+[node name="DamageZone" parent="." unique_id=103201379 instance=ExtResource("3_yuq7u")]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="DamageZone" unique_id=1831890342]
+position = Vector2(0.5, -0.625)
+shape = SubResource("RectangleShape2D_vt6hs")
+
+[node name="RayCastLeft" type="RayCast2D" parent="." unique_id=1706026627]
+target_position = Vector2(-68, 0)
+
+[node name="RayCastRight" type="RayCast2D" parent="." unique_id=819767780]
+target_position = Vector2(64, 0)

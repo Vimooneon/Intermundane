@@ -1,0 +1,65 @@
+[gd_scene format=3 uid="uid://ba6ksxacbsqcp"]
+
+[ext_resource type="Script" uid="uid://bviyax2vinv5v" path="res://Scripts/LockGreen.cs" id="1_ykgyr"]
+[ext_resource type="Texture2D" uid="uid://baye6g61rptvu" path="res://Arts/LockGreen.png" id="1_yue6p"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_vt6hs"]
+size = Vector2(48, 48)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_e406c"]
+size = Vector2(72, 68)
+
+[sub_resource type="Animation" id="Animation_ykgyr"]
+resource_name = "DoorUnlock"
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 1),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Color(1, 1, 1, 1), Color(1, 1, 1, 0)]
+}
+
+[sub_resource type="Animation" id="Animation_pla7b"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(1, 1, 1, 1)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_pla7b"]
+_data = {
+&"DoorUnlock": SubResource("Animation_ykgyr"),
+&"RESET": SubResource("Animation_pla7b")
+}
+
+[node name="lockGreen" type="StaticBody2D" unique_id=556967310]
+script = ExtResource("1_ykgyr")
+
+[node name="Sprite2D" type="Sprite2D" parent="." unique_id=1413810130]
+texture = ExtResource("1_yue6p")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=449660594]
+shape = SubResource("RectangleShape2D_vt6hs")
+
+[node name="unlockArea" type="Area2D" parent="." unique_id=406658038]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="unlockArea" unique_id=727762518]
+shape = SubResource("RectangleShape2D_e406c")
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="." unique_id=280071125]
+libraries/ = SubResource("AnimationLibrary_pla7b")
+
+[connection signal="body_entered" from="unlockArea" to="." method="OnUnlock"]

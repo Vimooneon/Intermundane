@@ -1,0 +1,9 @@
+[gd_scene format=3 uid="uid://dqfb1j7adpv3n"]
+
+[ext_resource type="Script" uid="uid://c64fpuqfk753w" path="res://Scripts/DamageZone.cs" id="1_y7cd6"]
+
+[node name="DamageZone" type="Area2D" unique_id=103201379]
+script = ExtResource("1_y7cd6")
+DamageAmount = 34
+
+[connection signal="body_entered" from="." to="." method="DamageZoneEntered"]

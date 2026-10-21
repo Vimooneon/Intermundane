@@ -1,0 +1,18 @@
+[gd_scene format=3 uid="uid://kvisj5egr4hw"]
+
+[ext_resource type="Texture2D" uid="uid://dlo3lk58rklk3" path="res://Arts/LabTilesSmaller.png" id="1_k502f"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_vt6hs"]
+size = Vector2(32, 20)
+
+[node name="AnimatableBody2D" type="AnimatableBody2D" unique_id=2125463359]
+scale = Vector2(3, 1.5)
+
+[node name="Sprite2D" type="Sprite2D" parent="." unique_id=1932767696]
+texture = ExtResource("1_k502f")
+region_enabled = true
+region_rect = Rect2(0, 57.38581, 30.563583, 21.029625)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=1465153603]
+shape = SubResource("RectangleShape2D_vt6hs")
+one_way_collision = true

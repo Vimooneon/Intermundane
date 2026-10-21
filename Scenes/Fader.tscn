@@ -54,31 +54,37 @@ _data = {
 &"RESET": SubResource("Animation_peqhf")
 }
 
-[node name="Fader" type="Control" unique_id=55244728]
-layout_mode = 3
-anchors_preset = 8
-anchor_left = 0.5
-anchor_top = 0.5
-anchor_right = 0.5
-anchor_bottom = 0.5
-grow_horizontal = 2
-grow_vertical = 2
+[node name="Fader" type="CanvasLayer" unique_id=1690616589]
+layer = 3
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="." unique_id=733678466]
 libraries/ = SubResource("AnimationLibrary_6kurl")
 
 [node name="ColorRect" type="ColorRect" parent="." unique_id=273958896]
 z_index = 20
-layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0.011764706, 0.011764706, 0.011764706, 1)
+
+[node name="Label" type="Label" parent="." unique_id=1249871021]
+visible = false
+z_index = 21
 anchors_preset = 8
 anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
-offset_left = -2053.0
-offset_top = -1154.0
-offset_right = 2177.0
-offset_bottom = 1251.0
+offset_left = -43.5
+offset_top = -11.5
+offset_right = 43.5
+offset_bottom = 11.5
 grow_horizontal = 2
 grow_vertical = 2
-color = Color(0.011764706, 0.011764706, 0.011764706, 1)
+size_flags_horizontal = 4
+theme_override_colors/font_color = Color(18.892, 18.892, 18.892, 1)
+theme_override_font_sizes/font_size = 100
+text = "Game Over"
+uppercase = true
