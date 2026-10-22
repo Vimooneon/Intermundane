@@ -1,5 +1,6 @@
 using Godot;
 using System;
+using System.Net.Mail;
 using System.Numerics;
 
 public partial class DespondencyEnemy : Enemy
@@ -23,7 +24,7 @@ public partial class DespondencyEnemy : Enemy
 	// Called every frame. 'delta' is the elapsed time since the previous frame.
 	public override void _Process(double delta)
 	{
-		if (Alive) {
+		if (Alive && !Paralyzed) {
             if (ray_right.IsColliding())
 			{
 				direction = -1;
@@ -35,6 +36,12 @@ public partial class DespondencyEnemy : Enemy
 				sprite2d.FlipH = true;
 			}
 			this.Position = new Godot.Vector2((float)(this.Position.X + direction * Speed * delta), this.Position.Y);
+        }else if (Alive && Paralyzed) //knockback mechanic, pushes enemy to opposite direction unless it colides with something
+		{
+			if (!(ray_right.IsColliding() || ray_left.IsColliding() ))
+			{
+				this.Position = new Godot.Vector2((float)(this.Position.X - direction * Speed * delta / 2), this.Position.Y);
+			}
         }
 	}
 }

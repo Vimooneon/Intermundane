@@ -7,7 +7,7 @@
 [ext_resource type="PackedScene" uid="uid://c3ur2ytiqhbm2" path="res://Scenes/CharacterSideView.tscn" id="5_7yhtt"]
 [ext_resource type="PackedScene" uid="uid://dqfb1j7adpv3n" path="res://Scenes/Damage_zone.tscn" id="6_ivh7d"]
 
-[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_lquwl"]
+[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_ivh7d"]
 texture = ExtResource("2_ivh7d")
 texture_region_size = Vector2i(47, 47)
 0:0/0 = 0
@@ -21,7 +21,7 @@ texture_region_size = Vector2i(47, 47)
 [sub_resource type="TileSet" id="TileSet_e406c"]
 tile_size = Vector2i(47, 47)
 physics_layer_0/collision_layer = 1
-sources/1 = SubResource("TileSetAtlasSource_lquwl")
+sources/1 = SubResource("TileSetAtlasSource_ivh7d")
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_vt6hs"]
 size = Vector2(819, 41)

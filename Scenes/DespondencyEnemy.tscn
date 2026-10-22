@@ -5,7 +5,7 @@
 [ext_resource type="PackedScene" uid="uid://dqfb1j7adpv3n" path="res://Scenes/Damage_zone.tscn" id="3_yuq7u"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_vt6hs"]
-size = Vector2(161, 103.25)
+size = Vector2(130, 103.25)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_e406c"]
 size = Vector2(116, 103)
@@ -99,9 +99,10 @@ scale = Vector2(0.3, 0.3)
 texture = ExtResource("1_lnpt8")
 
 [node name="DamageZone" parent="." unique_id=103201379 instance=ExtResource("3_yuq7u")]
+EnemyAttack = true
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="DamageZone" unique_id=1831890342]
-position = Vector2(0.5, -0.625)
+position = Vector2(-2, -0.625)
 shape = SubResource("RectangleShape2D_vt6hs")
 
 [node name="RayCastLeft" type="RayCast2D" parent="." unique_id=1706026627]
@@ -118,5 +119,9 @@ shape = SubResource("RectangleShape2D_e406c")
 libraries/ = SubResource("AnimationLibrary_yuq7u")
 
 [node name="DamageCooldown" type="Timer" parent="." unique_id=1870260219]
+wait_time = 0.5
+
+[node name="ParalyzedCooldown" type="Timer" parent="." unique_id=1476164934]
 
 [connection signal="timeout" from="DamageCooldown" to="." method="DamageCooldownTimerEnd"]
+[connection signal="timeout" from="ParalyzedCooldown" to="." method="ParalyzedCooldownTimerEnd"]

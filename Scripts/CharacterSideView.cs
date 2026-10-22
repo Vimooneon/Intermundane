@@ -114,9 +114,6 @@ public partial class CharacterSideView : CharacterBody2D
         Velocity = velocity;
         MoveAndSlide();
 
-        
-        
-
         //updates camera position to character position + moves it a bit forward (player can see a bit ahead in direction they move)
         camera.GlobalPosition = this.GlobalPosition;
         Godot.Vector2 vc = new Godot.Vector2(direction * Speed * CameraAheadMult, 0);
@@ -135,10 +132,12 @@ public partial class CharacterSideView : CharacterBody2D
 
     public async void AttackInFront()
     {
+        //prevents from attacking again if currently executing an attack
         if (attacking)
             return;
 
         Godot.Vector2 pos = attack.Position;
+        //offsets the attack to the right if player is facing the opposite direction
         if (sprite2d.FlipH)
         {
             attack.Position = new Godot.Vector2(pos.X+320, pos.Y);
@@ -159,17 +158,14 @@ public partial class CharacterSideView : CharacterBody2D
     {
         try
         {
+
             if (attacking)
             {
                 string name = obj.Name;
                 if (name.Contains("Enemy") || name.Contains("enemy"))
                 {
-
-                    //var global = GetNode<Global>("/root/Global");
-                    //global.GotoScene("res://Scenes/"+this.Name+".tscn", ModeSwap);
-                    GD.Print(obj.Name);
                     Enemy enmy = (Enemy)obj;
-                    enmy.EnemyTakeDamage(34);
+                    enmy.EnemyTakeDamage(34, (float)0.4);
                 }
             }
             
