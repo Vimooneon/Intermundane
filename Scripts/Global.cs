@@ -8,9 +8,12 @@ public partial class Global : Node
     private CanvasLayer _fader;
     private AnimationPlayer _faderAnim;
     private TextureProgressBar hpbar;
+    private AttackChoiceUI attackUI;
+    private bool SlowDown = false;
 
     public bool DamageTakeCooldown = false;
 
+    public int PlayerMaxHP = 100;
     public int PlayerHP = 100;
 
     public Node CurrentScene { get; set; }
@@ -27,6 +30,15 @@ public partial class Global : Node
 
         InitFader();
         InitHP();
+        InitAttack();
+    }
+
+    public override void _PhysicsProcess(double delta)
+    {
+        if (SlowDown && Engine.TimeScale>0.1)
+        {
+            Engine.TimeScale -= delta*3;
+        }
     }
 
     private void InitFader()
@@ -46,6 +58,33 @@ public partial class Global : Node
         var scene = (CanvasLayer)hpScene.Instantiate();
         AddChild(scene);
         hpbar = scene.GetNode<TextureProgressBar>("hpProgressBar");
+    }
+
+    private void InitAttack()
+    {
+        var attackScene = (PackedScene)ResourceLoader.Load("res://Scenes/AttackChoiceUI.tscn");
+        attackUI = (AttackChoiceUI)attackScene.Instantiate();
+        AddChild(attackUI);
+        attackUI.HideUI();
+    }
+
+    public void ShowAttack()
+    {
+        SlowDown = true;
+        attackUI.ShowUp();
+    }
+
+    public void resetAttack()
+    {
+        SlowDown = false;
+        attackUI.Visible = false;
+		attackUI.ProcessMode = ProcessModeEnum.Disabled;
+        Engine.TimeScale = 1;
+        CharacterSideView player = CurrentScene.GetNodeOrNull<CharacterSideView>("Player");
+        if (GodotObject.IsInstanceValid(player))
+        {
+            player.choosingAnAttack = false;
+        }
     }
 
     public void GotoScene(string path, bool fade) //Global function of changing scenes called from other functions, has FadeIn on new scene option
@@ -106,7 +145,7 @@ public partial class Global : Node
         _fader.Visible = false; // Hide fader after fade in
     }
 
-    public void PlayerTakeDamage(int amount)
+    public void PlayerTakeDamage(int amount, Godot.Vector2 force)
     {
         if (DamageTakeCooldown)
         {
@@ -122,10 +161,10 @@ public partial class Global : Node
         {
             PlayerHP = 0;
             RestartGame();
-            
+
         }
         hpbar.Value = PlayerHP;
-        Engine.TimeScale = 0.8;
+        //Engine.TimeScale = 0.8;
 
         hpbar.GetNode<AnimationPlayer>("AnimationPlayer").Play("TakeDamage");
 
@@ -134,14 +173,34 @@ public partial class Global : Node
         if (GodotObject.IsInstanceValid(player))
         {
             player.GetNode<AnimationPlayer>("AnimationPlayer").Play("TakeDamage");
-            player.Velocity = new Godot.Vector2(-player.Velocity.X/2, -player.Velocity.Y/2);
+            player.Velocity = force;
+            player.SetCollisionLayerValue(2, false);
+            player.SetCollisionMaskValue(2, false);
+            player.GetNode<Godot.Timer>("DamageCooldown").Start();
         }
         else if (GodotObject.IsInstanceValid(playerTD))
         {
             playerTD.GetNode<AnimationPlayer>("AnimationPlayer").Play("TakeDamage");
-            player.Velocity = new Godot.Vector2(-player.Velocity.X, -player.Velocity.Y);
+            //playerTD.Velocity = new Godot.Vector2(-player.Velocity.X, -player.Velocity.Y);
+            //playerTD.SetCollisionLayerValue(2, false);
+            //playerTD.GetNode<Godot.Timer>("DamageCooldown").Start();
         }
-        hpbar.GetNode<Godot.Timer>("DamageCooldown").Start();
+        
+    }
+    
+    public void PlayerHeal(int amount)
+    {
+
+        if (PlayerHP + amount < PlayerMaxHP)
+        {
+            PlayerHP += amount;
+        }
+        else
+        {
+            PlayerHP = PlayerMaxHP;
+        }
+        hpbar.Value = PlayerHP;
+        hpbar.GetNode<AnimationPlayer>("AnimationPlayer").Play("Heal");
     }
 
     public async void RestartGame()

@@ -18,23 +18,33 @@ public partial class DamageZone : Area2D
 
 	public void DamageZoneEntered(Node2D obj)
     {
+        Godot.Vector2 force = new Godot.Vector2(0,0);
         //Check if the damage is done by enemy
         if (EnemyAttack)
-        {   
+        {
             //check if enemy is currently alive and not paralyzed
             var enmy = (Enemy)GetParent();
             if (enmy.Paralyzed || !enmy.Alive)
             {
                 return;
             }
+            force = new Godot.Vector2(enmy.Speed * enmy.direction * 3, 0);
         }
         try
         {
             //if the area collides with player deals attack damage
             if (obj.Name == "Player" || obj.Name == "PlayerTopDown")
             {
-				var global = GetNode<Global>("/root/Global");
-				global.PlayerTakeDamage(DamageAmount);
+                
+                if (!EnemyAttack)
+                {
+                    CharacterBody2D player = (CharacterBody2D)obj;
+                    force = player.Velocity;
+                    force.X /= 2;
+                    force.Y /= 2;
+                }
+                var global = GetNode<Global>("/root/Global");
+				global.PlayerTakeDamage(DamageAmount, force);
             }
         }
         catch (Exception e)

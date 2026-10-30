@@ -12,11 +12,4 @@ public partial class HpProgressBar : TextureProgressBar
 	public override void _Process(double delta)
 	{
 	}
-
-	public void DamageCooldownTimerEnd()
-	{
-		Engine.TimeScale = 1;
-        var global = GetNode<Global>("/root/Global");
-        global.DamageTakeCooldown = false;
-    }
 }

@@ -6,10 +6,10 @@ using System.Runtime.CompilerServices;
 public partial class CharacterSideView : CharacterBody2D
 {
 
-    public const float Speed = 100.0f;
-    public const float MaxSpeed = 300.0f;
+    public const float Speed = 120.0f;
+    public const float MaxSpeed = 400.0f;
     public const float JumpAccel = 1.2f;
-    public const float SpeedIncrease = 5.0f;
+    public const float SpeedIncrease = 150.0f; //actual value is lower because multiplied by delta
     public const float JumpVelocity = -700.0f;
     public const float LowJumpMult = 0.5f; // Cuts velocity to 50% if tapped
     public const float CameraAheadMult = 1.5f;
@@ -19,7 +19,7 @@ public partial class CharacterSideView : CharacterBody2D
     private Camera2D camera;
 
     private bool attacking = false;
-
+    public bool choosingAnAttack = false;
 
     //var CoyoteLength = 6;  // How many in-air frames to allow jumping
     Boolean CoyoteTime = false;  // Track whether we're in coyote time or not
@@ -48,12 +48,10 @@ public partial class CharacterSideView : CharacterBody2D
         }
         Vector2 velocity = Velocity;
 
-
-        // Animations (TODO)
-        //if (Math.Abs(velocity.X) > 1)
-        //    sprite2d.Animation = "running";
-        //else
-        //    sprite2d.Animation = "default";
+        if (Math.Abs(velocity.X) > 1)
+            sprite2d.Animation = "walk";
+        else
+            sprite2d.Animation = "default";
 
         if (!IsOnFloor())
         {
@@ -79,16 +77,16 @@ public partial class CharacterSideView : CharacterBody2D
             CoyoteTime = false;
         }
         //Less jump height if button tapped instead of held
-        if (Input.IsActionJustReleased("jump") && velocity.Y < 0)
+        if (Input.IsActionJustReleased("jump") && velocity.Y < 0 && !choosingAnAttack)
         {
             velocity.Y *= LowJumpMult;
         }
 
-        
+
 
         // Get the input direction and handle the movement/deceleration.
         float direction = Input.GetAxis("move_left", "move_right");
-        if (direction != 0)
+        if (direction != 0 && !choosingAnAttack)
         {
             if (Jumping && direction * velocity.X < Speed * JumpAccel) //starting speed when jumping
             {
@@ -100,7 +98,7 @@ public partial class CharacterSideView : CharacterBody2D
             }
             else if (direction * velocity.X < MaxSpeed) //speed is increased until reached max speed
             {
-                velocity.X += direction * SpeedIncrease;
+                velocity.X += direction * SpeedIncrease * (float)delta;
             }
             // Flip the sprite based on the direction.
             bool isLeft = velocity.X < 0;
@@ -123,6 +121,13 @@ public partial class CharacterSideView : CharacterBody2D
         {
             AttackInFront();
         }
+
+        if (Input.IsActionJustPressed("attack_choice") && !choosingAnAttack)
+        {
+            var global = GetNode<Global>("/root/Global");
+            global.ShowAttack();
+            choosingAnAttack = true;
+        }
     }
 
     public void CoyteTimerEnd()
@@ -133,7 +138,7 @@ public partial class CharacterSideView : CharacterBody2D
     public async void AttackInFront()
     {
         //prevents from attacking again if currently executing an attack
-        if (attacking)
+        if (attacking || choosingAnAttack)
             return;
 
         Godot.Vector2 pos = attack.Position;
@@ -168,12 +173,22 @@ public partial class CharacterSideView : CharacterBody2D
                     enmy.EnemyTakeDamage(34, (float)0.4);
                 }
             }
-            
+
         }
         catch (Exception e)
         {
             GD.Print("Wrong collider " + e);
         }
+    }
+
+    public void DamageCooldownTimerEnd()
+    {
+        //Engine.TimeScale = 1;
+        var global = GetNode<Global>("/root/Global");
+        global.DamageTakeCooldown = false;
+        SetCollisionLayerValue(2, true);
+        SetCollisionMaskValue(2, true);
+
     }
     
 }

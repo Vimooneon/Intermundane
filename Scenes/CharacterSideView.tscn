@@ -1,22 +1,87 @@
 [gd_scene format=3 uid="uid://c3ur2ytiqhbm2"]
 
 [ext_resource type="Script" uid="uid://cdkylrjabmjmw" path="res://Scripts/CharacterSideView.cs" id="1_v44lu"]
-[ext_resource type="Texture2D" uid="uid://dw5m0qhq8uldd" path="res://Arts/PapercutChibiSmaller.png" id="2_ypong"]
+[ext_resource type="Texture2D" uid="uid://bfl2544vuek5h" path="res://Arts/PaperCutSpriteSheet.png" id="3_rrv8s"]
 [ext_resource type="Texture2D" uid="uid://dwp4xae5vvh1u" path="res://Arts/ClawHit.png" id="3_v44lu"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_07786"]
+atlas = ExtResource("3_rrv8s")
+region = Rect2(0, 0, 597, 417)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_22g0r"]
+atlas = ExtResource("3_rrv8s")
+region = Rect2(0, 0, 597, 417)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_g64j2"]
+atlas = ExtResource("3_rrv8s")
+region = Rect2(597, 0, 597, 417)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_tr23e"]
+atlas = ExtResource("3_rrv8s")
+region = Rect2(1194, 0, 597, 417)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_egeqf"]
+atlas = ExtResource("3_rrv8s")
+region = Rect2(0, 417, 597, 417)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_tghja"]
+atlas = ExtResource("3_rrv8s")
+region = Rect2(597, 417, 597, 417)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_pjn8t"]
+atlas = ExtResource("3_rrv8s")
+region = Rect2(1194, 417, 597, 417)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_hrwfm"]
+atlas = ExtResource("3_rrv8s")
+region = Rect2(0, 834, 597, 417)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_36g2c"]
+atlas = ExtResource("3_rrv8s")
+region = Rect2(597, 834, 597, 417)
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_vt6hs"]
 animations = [{
 "frames": [{
 "duration": 1.0,
-"texture": ExtResource("2_ypong")
+"texture": SubResource("AtlasTexture_07786")
 }],
 "loop": 1,
 "name": &"default",
 "speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_22g0r")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_g64j2")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_tr23e")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_egeqf")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_tghja")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_pjn8t")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_hrwfm")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_36g2c")
+}],
+"loop": 1,
+"name": &"walk",
+"speed": 8.0
 }]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_vt6hs"]
-size = Vector2(196, 174)
+size = Vector2(174, 181)
 
 [sub_resource type="Animation" id="Animation_ypong"]
 length = 0.001
@@ -167,15 +232,18 @@ animations = [{
 size = Vector2(118, 140.25)
 
 [node name="CharacterBody2D" type="CharacterBody2D" unique_id=59839763]
+collision_layer = 3
+collision_mask = 3
 script = ExtResource("1_v44lu")
 
 [node name="Sprite2D" type="AnimatedSprite2D" parent="." unique_id=1985060076]
 scale = Vector2(0.5, 0.5)
 sprite_frames = SubResource("SpriteFrames_vt6hs")
-frame_progress = 0.39202544
+autoplay = "walk"
+frame_progress = 0.5587042
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=1842678987]
-position = Vector2(-1, -1)
+position = Vector2(-4, 2.5)
 shape = SubResource("RectangleShape2D_vt6hs")
 
 [node name="CoyoteTimer" type="Timer" parent="." unique_id=1451845042]
@@ -187,6 +255,8 @@ libraries/ = SubResource("AnimationLibrary_rrv8s")
 
 [node name="Scratch" type="Area2D" parent="." unique_id=1845297036]
 visible = false
+collision_layer = 2
+collision_mask = 2
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="Scratch" unique_id=1590277819]
 position = Vector2(-163, 7)
@@ -200,5 +270,9 @@ frame_progress = 1.0
 position = Vector2(-163, 6.875)
 shape = SubResource("RectangleShape2D_e406c")
 
+[node name="DamageCooldown" type="Timer" parent="." unique_id=1034333567]
+wait_time = 0.5
+
 [connection signal="timeout" from="CoyoteTimer" to="." method="CoyteTimerEnd"]
 [connection signal="body_entered" from="Scratch" to="." method="OnScratchInAttackRange"]
+[connection signal="timeout" from="DamageCooldown" to="." method="DamageCooldownTimerEnd"]

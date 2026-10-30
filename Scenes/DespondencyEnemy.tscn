@@ -91,7 +91,9 @@ _data = {
 &"scratch": SubResource("Animation_rrv8s")
 }
 
-[node name="despondencyEnemy" type="RigidBody2D" unique_id=1832366675]
+[node name="despondencyEnemy" type="StaticBody2D" unique_id=1020143039]
+collision_layer = 2
+collision_mask = 2
 script = ExtResource("1_yuq7u")
 
 [node name="Sprite2D" type="Sprite2D" parent="." unique_id=2002930839]
@@ -99,6 +101,8 @@ scale = Vector2(0.3, 0.3)
 texture = ExtResource("1_lnpt8")
 
 [node name="DamageZone" parent="." unique_id=103201379 instance=ExtResource("3_yuq7u")]
+collision_layer = 2
+collision_mask = 2
 EnemyAttack = true
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="DamageZone" unique_id=1831890342]

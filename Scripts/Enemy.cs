@@ -5,8 +5,8 @@ using System.Runtime.InteropServices.Marshalling;
 
 public partial class Enemy : Node2D
 {
-    const int Speed = 300;
-	int direction = 1;
+    [Export] public int Speed = 300;
+	public int direction = 1;
     public bool DamageTakeCooldown = false;
 
     public bool Alive = true;
@@ -34,7 +34,7 @@ public partial class Enemy : Node2D
             Dissapear();
             return;
 		}
-        Engine.TimeScale = 0.8;
+        //Engine.TimeScale = 0.8;
 
         
         Paralyzed = true;
@@ -47,7 +47,7 @@ public partial class Enemy : Node2D
 
     public void DamageCooldownTimerEnd()
     {
-        Engine.TimeScale = 1;
+        //Engine.TimeScale = 1;
         DamageTakeCooldown = false;
     }
 
@@ -59,13 +59,13 @@ public partial class Enemy : Node2D
     public async void Dissapear()
     {
         Alive = false;
-        Engine.TimeScale = 0.5;
+        //Engine.TimeScale = 0.5;
         AnimationPlayer anim = this.GetNode<AnimationPlayer>("AnimationPlayer");
         anim.Play("Dissapear");
         this.Position = new Godot.Vector2((float)(this.Position.X - direction * Speed / 8), this.Position.Y);
         await ToSignal(anim, "animation_finished");
         this.ProcessMode = ProcessModeEnum.Disabled;
-        Engine.TimeScale = 1;
+       // Engine.TimeScale = 1;
     }
 
 }
