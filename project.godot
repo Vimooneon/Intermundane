@@ -13,6 +13,7 @@ config_version=5
 config/name="Intermundane"
 run/main_scene="uid://dt2wuj54m373d"
 config/features=PackedStringArray("4.7", "C#", "Forward Plus")
+run/max_fps=240
 config/icon="res://Arts/icon.svg"
 
 [autoload]

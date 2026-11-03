@@ -1,7 +1,5 @@
 using Godot;
 using System;
-using System.Net.Mail;
-using System.Numerics;
 
 public partial class DespondencyEnemy : Enemy
 {
@@ -33,20 +31,18 @@ public partial class DespondencyEnemy : Enemy
 				direction = 1;
 				sprite2d.FlipH = true;
 			}
-			/*Vector2 velocity = Velocity;
+
+			Vector2 velocity = Velocity;
 			velocity.X = direction * Speed;
-			Velocity = velocity;*/
-			this.Position = new Godot.Vector2((float)(this.Position.X + direction * Speed * delta), this.Position.Y);
+			Velocity = velocity;
+			MoveAndSlide();
+
         }else if (Alive && Paralyzed) //knockback mechanic, pushes enemy to opposite direction unless it colides with something
 		{
-			/*Vector2 velocity = Velocity;
+			Vector2 velocity = Velocity;
 			velocity.X = -direction * Speed;
-			Velocity = velocity;*/
-			if (!(ray_right.IsColliding() || ray_left.IsColliding() ))
-			{
-
-				this.Position = new Godot.Vector2((float)(this.Position.X - direction * Speed * delta / 2), this.Position.Y);
-			}
+			Velocity = velocity;
+			MoveAndSlide();
         }
 	}
 }

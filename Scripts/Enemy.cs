@@ -3,7 +3,7 @@ using System;
 using System.Numerics;
 using System.Runtime.InteropServices.Marshalling;
 
-public partial class Enemy : Node2D
+public partial class Enemy : CharacterBody2D
 {
     [Export] public int Speed = 300;
 	public int direction = 1;
@@ -29,13 +29,10 @@ public partial class Enemy : Node2D
 		}
 		else
         {
-            
             Health = 0;
             Dissapear();
             return;
 		}
-        //Engine.TimeScale = 0.8;
-
         
         Paralyzed = true;
         this.GetNode<Godot.Timer>("ParalyzedCooldown").WaitTime = paralyzed_time;

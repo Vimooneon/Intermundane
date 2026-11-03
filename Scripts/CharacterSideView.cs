@@ -163,7 +163,6 @@ public partial class CharacterSideView : CharacterBody2D
     {
         try
         {
-
             if (attacking)
             {
                 string name = obj.Name;
@@ -183,7 +182,6 @@ public partial class CharacterSideView : CharacterBody2D
 
     public void DamageCooldownTimerEnd()
     {
-        //Engine.TimeScale = 1;
         var global = GetNode<Global>("/root/Global");
         global.DamageTakeCooldown = false;
         SetCollisionLayerValue(2, true);

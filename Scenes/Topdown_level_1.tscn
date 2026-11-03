@@ -3,7 +3,8 @@
 [ext_resource type="Texture2D" uid="uid://dlo3lk58rklk3" path="res://Arts/LabTilesSmaller.png" id="1_g3m6n"]
 [ext_resource type="PackedScene" uid="uid://dnrxmcp58btj8" path="res://Scenes/NextRoomGate.tscn" id="2_dbsrk"]
 [ext_resource type="PackedScene" uid="uid://ivfx4h4kbbbh" path="res://Scenes/CharacterTopDown.tscn" id="3_03ao7"]
-[ext_resource type="Script" uid="uid://ce3k0m4vqojrk" path="res://Scripts/CharacterTopDown.cs" id="4_b37fa"]
+[ext_resource type="PackedScene" uid="uid://c88gowhkf0qnp" path="res://Scenes/despondencyEnemyTopDown.tscn" id="4_g3m6n"]
+[ext_resource type="PackedScene" uid="uid://dqfb1j7adpv3n" path="res://Scenes/Damage_zone.tscn" id="5_dbsrk"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_2ke8o"]
 texture = ExtResource("1_g3m6n")
@@ -21,6 +22,9 @@ tile_size = Vector2i(47, 47)
 physics_layer_0/collision_layer = 1
 sources/1 = SubResource("TileSetAtlasSource_2ke8o")
 
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_vt6hs"]
+size = Vector2(110, 97)
+
 [node name="topdownLevel1" type="Node" unique_id=1505451375]
 
 [node name="TileMap" type="TileMapLayer" parent="." unique_id=397318015]
@@ -37,8 +41,25 @@ position = Vector2(1254, 332)
 [node name="PlayerTopDown" parent="." unique_id=1169013231 instance=ExtResource("3_03ao7")]
 position = Vector2(566, 646)
 scale = Vector2(0.4, 0.4)
-script = ExtResource("4_b37fa")
 
 [node name="topdownLevel2Entrance" type="Marker2D" parent="." unique_id=826219749]
 z_index = 2
 position = Vector2(1179, 331)
+
+[node name="despondencyEnemyTopDown" parent="." unique_id=708225254 instance=ExtResource("4_g3m6n")]
+position = Vector2(252, 187)
+
+[node name="DamageZone" parent="." unique_id=103201379 instance=ExtResource("5_dbsrk")]
+position = Vector2(1119.2231, 559.7438)
+DamageAmount = 10
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="DamageZone" unique_id=695661463]
+position = Vector2(-0.22314453, -0.24377441)
+shape = SubResource("RectangleShape2D_vt6hs")
+
+[node name="Label" type="Label" parent="." unique_id=1218064229]
+offset_left = 1098.0
+offset_top = 544.0
+offset_right = 1140.0
+offset_bottom = 567.0
+text = "Spike"

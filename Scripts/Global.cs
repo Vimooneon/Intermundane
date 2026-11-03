@@ -181,9 +181,10 @@ public partial class Global : Node
         else if (GodotObject.IsInstanceValid(playerTD))
         {
             playerTD.GetNode<AnimationPlayer>("AnimationPlayer").Play("TakeDamage");
-            //playerTD.Velocity = new Godot.Vector2(-player.Velocity.X, -player.Velocity.Y);
-            //playerTD.SetCollisionLayerValue(2, false);
-            //playerTD.GetNode<Godot.Timer>("DamageCooldown").Start();
+            playerTD.Velocity = force;
+            playerTD.SetCollisionLayerValue(2, false);
+            playerTD.SetCollisionMaskValue(2, false);
+            playerTD.GetNode<Godot.Timer>("DamageCooldown").Start();
         }
         
     }
@@ -212,5 +213,20 @@ public partial class Global : Node
         gameOver.Visible = false;
         PlayerHP = 100;
         hpbar.Value = PlayerHP;
+    }
+
+    public CharacterBody2D GetPlayer()
+    {
+        CharacterBody2D player = CurrentScene.GetNodeOrNull<CharacterBody2D>("Player");
+        CharacterBody2D playerTD = CurrentScene.GetNodeOrNull<CharacterBody2D>("PlayerTopDown");
+        if (GodotObject.IsInstanceValid(player))
+        {
+            return player;
+        }
+        else if (GodotObject.IsInstanceValid(playerTD))
+        {
+            return playerTD;
+        }
+        return null;
     }
 }
